@@ -1,0 +1,512 @@
+sample <- rnorm(15, 4, 10)
+z.test(sample, mu = 4, sigma.x = 10)
+z.test(sample, mu = 4, sigma.x = sd(sample))
+t.test(sample, mu=4)
+find_beta_t <- function(n, alpha, ssd, d){
+q_low <- qt(alpha/2, n-1)
+q_high <- qt(1-alpha/2, n-1)
+beta <- pt(q_high, n-1, d/(ssd/sqrt(n))) - pt(q_low, d/(ssd/sqrt(n)))
+return(beta)
+}
+find_beta_t <- function(n, alpha, ssd, d){
+q_low <- qt(alpha/2, n-1)
+q_high <- qt(1-alpha/2, n-1)
+beta <- pt(q_high, n-1, d/(ssd/sqrt(n))) - pt(q_low, d/(ssd/sqrt(n)))
+return(beta)
+}
+find_beta_t(10, 0.05, 0.3, 0.1)
+beta <- 0.2
+optimisation <- function(d) {find_beta_t(10, 0.05, 0.3, d) - beta}
+uniroot(optimisation, lower=0, upper = 10000)$root
+find_beta_t <- function(n, alpha, ssd, d){
+q_low <- qt(alpha/2, n-1)
+q_high <- qt(1-alpha/2, n-1)
+beta <- pt(q_high, n-1, d/(ssd/sqrt(n))) - pt(q_low, n-1, d/(ssd/sqrt(n)))
+return(beta)
+}
+find_beta_t(10, 0.05, 0.3, 0.1)
+beta <- 0.2
+optimisation <- function(d) {find_beta_t(10, 0.05, 0.3, d) - beta}
+uniroot(optimisation, lower=0, upper = 10000)$root
+find_beta_t_in_sd <- function(n, alpha, d){
+q_low <- qt(alpha/2, n-1)
+q_high <- qt(1-alpha/2, n-1)
+beta <- pt(q_high, n-1, d) - pt(q_low, n-1, d)
+return(beta)
+}
+find_beta_t(10, 0.05, 0.1)
+find_beta_t_in_sd <- function(n, alpha, d){
+q_low <- qt(alpha/2, n-1)
+q_high <- qt(1-alpha/2, n-1)
+beta <- pt(q_high, n-1, d) - pt(q_low, n-1, d)
+return(beta)
+}
+find_beta_t_in_sd(10, 0.05, 0.1)
+beta <- 0.2
+optimisation <- function(d) {find_beta_t_in_sd(10, 0.05, d) - beta}
+uniroot(optimisation, lower=0, upper = 10000)$root
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+df <- read.csv("suicides.csv")
+df <- read.csv("suicides.csv")
+setwd("~/Desktop/descr.stat./homeworks/HW3")
+df <- read.csv("suicides.csv")
+df <- read.csv("suicides.csv")
+df <- read.csv("suicides.csv")
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+df <- read.csv("suicide.csv")
+head(df, 10)
+unique(df$year)
+unique(df$country)
+unique(subset(df, df$country == "Austria")$year)
+unique(subset(df, df$country == "Poland")$year)
+unique(subset(df, df$country == "South Africa")$year)
+unique(subset(df, df$country == "Ukraine")$year)
+unique(subset(df, df$country == "United Kingdom")$year)
+unique(subset(df, df$country == "United Kingdom")$age)
+unique(subset(df, df$country == "Fiji")$age)
+unique(subset(df, df$country == "Republic of Korea")$age)
+unique(df$generation)
+summary(df)
+# I feel the sheer need to find out the country of year where 22338.0 suicides where recorded
+df[df$suicides_no == 22338.0]
+# I feel the sheer need to find out the country of year where 22338.0 suicides where recorded
+df[df$suicides_no == 22338.0, ]
+colnames(df)
+#checked some of the countries to understand if each has every age group - bat we can see it below also
+summary(factor(df$age))
+length(unique(df$country))
+unique(subset(df, df$country == "United Kingdom")$year)
+unique(subset(df, df$country == "Oman")$year)
+summary(df)
+summary(df)
+#let's look for gender stats
+summary(factor(df$gender))
+#let's look for gender stats
+summary(factor(df$sex))
+df[df$population==278]
+df[df$population==278, ]
+summary(df)
+colnames(df)
+df$gdp_for_year....
+as.numeric(df$gdp_for_year)
+?gsub
+?trimws
+df$gdp_for_year.... <- gsub(",", "", df$gdp_for_year....)  # let's remove commas
+as.numeric(df$gdp_for_year)  #data is with cammas, so is not converted properly
+df$gdp_for_year.... <- gsub(",", "", df$gdp_for_year....)  # let's remove commas
+df$gdp_for_year.... <- as.numeric(df$gdp_for_year....)
+df$gdp_for_year....
+summary(df)
+(df$suic_100k <- round( ((df$suicides_no / df$population) * 100000), 2))
+df[df$suicides.100k.pop != df$suic_100k]
+df[df$suicides.100k.pop != df$suic_100k, ]
+df[df$suicides.100k.pop != df$suic_100k, c("country", "year", "suicides.100k.pop", "suic_100k")]
+# mostly a really small difference
+round(1.455, 2)
+# mostly a really small difference
+round(1.454, 2)
+iqr_outliers <- function(df, x){ # df is datafarame, x is df$column_for_finding_outliers
+q1 <- quantile(x, 0.25)
+q3 <- quantile(x, 0.75)
+iqr <- q3 - q1
+outliers <- df[x < (q1 - 1.5 * iqr) | x > (q3 + 1.5 * iqr)]
+cat("Found", nrow(outliers), "outliers in", df)
+return(outliers)
+}
+iqr_outliers(df, df$suic_100k)
+iqr_outliers <- function(df, x){ # df is datafarame, x is df$column_for_finding_outliers
+q1 <- quantile(x, 0.25)
+q3 <- quantile(x, 0.75)
+iqr <- q3 - q1
+outliers <- df[x < (q1 - 1.5 * iqr) | x > (q3 + 1.5 * iqr), ]
+cat("Found", nrow(outliers), "outliers in", df)
+return(outliers)
+}
+iqr_outliers(df, df$suic_100k)
+iqr_outliers <- function(df, x){ # df is datafarame, x is df$column_for_finding_outliers
+q1 <- quantile(x, 0.25)
+q3 <- quantile(x, 0.75)
+iqr <- q3 - q1
+outliers <- df[x < (q1 - 1.5 * iqr) | x > (q3 + 1.5 * iqr), ]
+cat("Found", nrow(outliers), "outliers in df")
+return(outliers)
+}
+iqr_outliers(df, df$suic_100k)
+iqr_outliers <- function(df, x){ # df is datafarame, x is df$column_for_finding_outliers
+q1 <- quantile(x, 0.25)
+q3 <- quantile(x, 0.75)
+iqr <- q3 - q1
+outliers <- df[x < (q1 - 1.5 * iqr) | x > (q3 + 1.5 * iqr), ]
+cat("Found", nrow(outliers), "outliers in df")
+}
+iqr_outliers(df, df$suic_100k)
+iqr_outliers <- function(df, x, print_outliers = F, all = F){ # df is datafarame, x is df$column_for_finding_outliers
+q1 <- quantile(x, 0.25)
+q3 <- quantile(x, 0.75)
+iqr <- q3 - q1
+outliers <- df[x < (q1 - 1.5 * iqr) | x > (q3 + 1.5 * iqr), ]
+cat("Found", nrow(outliers), "outliers in df")
+if (print_outliers){
+if (all){
+print(outliers)
+} else {
+head(outliers)
+}
+}
+}
+iqr_outliers(df, df$suic_100k)
+iqr_outliers(df, df$suic_100k, print_outliers = T)
+return(outliers)
+iqr_outliers <- function(df, x, print_outliers = F, all = F){ # df is datafarame, x is df$column_for_finding_outliers
+q1 <- quantile(x, 0.25)
+q3 <- quantile(x, 0.75)
+iqr <- q3 - q1
+outliers <- df[x < (q1 - 1.5 * iqr) | x > (q3 + 1.5 * iqr), ]
+cat("Found", nrow(outliers), "outliers in df")
+if (print_outliers){
+if (all){
+print(outliers)
+} else {
+head(outliers)
+}
+}
+return(outliers)
+}
+iqr_outliers <- function(df, x, print_outliers = F, all = F){ # df is datafarame, x is df$column_for_finding_outliers
+q1 <- quantile(x, 0.25)
+q3 <- quantile(x, 0.75)
+iqr <- q3 - q1
+outliers <- df[x < (q1 - 1.5 * iqr) | x > (q3 + 1.5 * iqr), ]
+cat("Found", nrow(outliers), "outliers in df")
+if (print_outliers){
+if (all){
+print(outliers)
+} else {
+head(outliers)
+}
+}
+return(outliers)
+}
+iqr_outliers(df, df$suic_100k, print_outliers = T)
+}
+iqr_outliers <- function(df, x, print_outliers = F, all = F){ # df is datafarame, x is df$column_for_finding_outliers
+q1 <- quantile(x, 0.25)
+q3 <- quantile(x, 0.75)
+iqr <- q3 - q1
+outliers <- df[x < (q1 - 1.5 * iqr) | x > (q3 + 1.5 * iqr), ]
+cat("Found", nrow(outliers), "outliers in df")
+if (print_outliers){
+if (all){
+print(outliers)
+} else {
+head(outliers)
+}
+}
+}
+iqr_outliers(df, df$suic_100k, print_outliers = T)
+iqr_outliers(subset(df, df$sex == "male"), subset(df, df$sex == "male")$suic_100k)
+iqr_outliers(subset(df, df$sex == "female"), subset(df, df$sex == "female")$suic_100k)
+by_gender_outliers <- iqr_outliers(subset(df, df$sex == "male"), subset(df, df$sex == "male")$suic_100k) +
+iqr_outliers(subset(df, df$sex == "female"), subset(df, df$sex == "female")$suic_100k)
+by_gender_outliers <- iqr_outliers(subset(df, df$sex == "male"), subset(df, df$sex == "male")$suic_100k) +
+iqr_outliers(subset(df, df$sex == "female"), subset(df, df$sex == "female")$suic_100k)
+by_gender_outliers <- iqr_outliers(subset(df, df$sex == "male"), subset(df, df$sex == "male")$suic_100k) + iqr_outliers(subset(df, df$sex == "female"), subset(df, df$sex == "female")$suic_100k)
+iqr_outliers <- function(df, x, print_outliers = F, all = F){ # df is datafarame, x is df$column_for_finding_outliers
+q1 <- quantile(x, 0.25)
+q3 <- quantile(x, 0.75)
+iqr <- q3 - q1
+outliers <- df[x < (q1 - 1.5 * iqr) | x > (q3 + 1.5 * iqr), ]
+cat("Found", nrow(outliers), "outliers in df\n")
+if (print_outliers){
+if (all){
+print(outliers)
+} else {
+head(outliers)
+}
+}
+}
+general_outliers <- iqr_outliers(df, df$suic_100k, print_outliers = T)
+iqr_outliers <- function(df, x, print_outliers = F, all = F){ # df is datafarame, x is df$column_for_finding_outliers
+q1 <- quantile(x, 0.25)
+q3 <- quantile(x, 0.75)
+iqr <- q3 - q1
+outliers <- df[x < (q1 - 1.5 * iqr) | x > (q3 + 1.5 * iqr), ]
+cat("Found", nrow(outliers), "outliers in df\n")
+if (print_outliers){
+if (all){
+print(outliers)
+} else {
+head(outliers)
+}
+}
+return(nrow(outliers))
+}
+general_outliers <- iqr_outliers(df, df$suic_100k, print_outliers = T)
+by_gender_outliers <- iqr_outliers(subset(df, df$sex == "male"), subset(df, df$sex == "male")$suic_100k) + iqr_outliers(subset(df, df$sex == "female"), subset(df, df$sex == "female")$suic_100k)
+by_age_outliers <- 0
+for (age in unique(df$age)){
+num <- iqr_outliers(subset(df, df$age == age), subset(df, df$age == age)$age)
+by_age_outliers <- by_age_outliers + num
+}
+for (a in unique(df$age)){
+num <- iqr_outliers(subset(df, df$age == a), subset(df, df$age == a)$age)
+by_age_outliers <- by_age_outliers + num
+}
+unique(df$age)
+for (a %in% unique(df$age)){
+for (a in unique(df$age)){
+num <- iqr_outliers(subset(df, df$age == a), subset(df, df$age == a)$age)
+by_age_outliers <- by_age_outliers + num
+}
+for (a in unique(df$age)){
+print("Hi")
+#num <- iqr_outliers(subset(df, df$age == a), subset(df, df$age == a)$age)
+# by_age_outliers <- by_age_outliers + num
+}
+for (a in unique(df$age)){
+num <- iqr_outliers(subset(df, df$age == a), subset(df, df$age == a)$age)
+# by_age_outliers <- by_age_outliers + num
+}
+for (a in unique(df$age)){
+print(subset(df, df$age == a))
+#num <- iqr_outliers(subset(df, df$age == a), subset(df, df$age == a)$age)
+# by_age_outliers <- by_age_outliers + num
+}
+for (a in unique(df$age)){
+print(subset(df, df$age == a)$age)
+#num <- iqr_outliers(subset(df, df$age == a), subset(df, df$age == a)$age)
+# by_age_outliers <- by_age_outliers + num
+}
+iqr_outliers <- function(df, x, print_outliers = F, all = F){ # df is datafarame, x is df$column_for_finding_outliers
+q1 <- quantile(x, 0.25)
+q3 <- quantile(x, 0.75)
+iqr <- q3 - q1
+outliers <- df[x < (q1 - 1.5 * iqr) | x > (q3 + 1.5 * iqr), ]
+if (print_outliers){
+if (all){
+print(outliers)
+} else {
+head(outliers)
+}
+}
+return(nrow(outliers))
+}
+general_outliers <- iqr_outliers(df, df$suic_100k, print_outliers = T)
+by_gender_outliers <- iqr_outliers(subset(df, df$sex == "male"), subset(df, df$sex == "male")$suic_100k) + iqr_outliers(subset(df, df$sex == "female"), subset(df, df$sex == "female")$suic_100k)
+by_age_outliers <- 0
+for (a in unique(df$age)){
+num <- iqr_outliers(subset(df, df$age == a), subset(df, df$age == a)$age)
+by_age_outliers <- by_age_outliers + num
+}
+iqr_outliers <- function(df, column_name, print_outliers = F, all = F){ # df is datafarame, x is df$column_for_finding_outliers
+x <- df[[column_name]]
+q1 <- quantile(x, 0.25, na.rm = T)
+q3 <- quantile(x, 0.75, na.rm = T)
+iqr <- q3 - q1
+outliers <- df[x < (q1 - 1.5 * iqr) | x > (q3 + 1.5 * iqr), ]
+cat("Found", nrow(outliers), "outliers in df\n")
+if (print_outliers){
+if (all){
+print(outliers)
+} else{
+print(head(outliers))
+}
+}
+return(nrow(outliers))
+}
+general_outliers <- iqr_outliers(df, suic_100k, print_outliers = T)
+general_outliers <- iqr_outliers(df, "suic_100k", print_outliers = T)
+by_gender_outliers <- iqr_outliers(subset(df, df$sex == "male"), "suic_100k") + iqr_outliers(subset(df, df$sex == "female"), "suic_100k")
+by_age_outliers <- 0
+for (a in unique(df$age)){
+num <- iqr_outliers(subset(df, df$age == a), "suic_100k")
+by_age_outliers <- by_age_outliers + num
+}
+by_age_outliers
+#
+by_age_gender <- 0
+for (a in unique(df$age)){
+for (g in unique(df$sex)){
+num <- iqr_outliers(subset(df, df$age == a & df$sex == g), "suic_100k")
+by_age_outliers <- by_age_outliers + num
+}
+}
+by_age_gender
+#
+by_age_gender <- 0
+for (a in unique(df$age)){
+for (g in unique(df$sex)){
+num <- iqr_outliers(subset(df, df$age == a & df$sex == g), "suic_100k")
+by_age_gender <- by_age_gender + num
+}
+}
+by_age_gender
+#
+general_outliers <- iqr_outliers(df, "suic_100k", print_outliers = T)
+#
+by_gender_outliers <- iqr_outliers(subset(df, df$sex == "male"), "suic_100k") + iqr_outliers(subset(df, df$sex == "female"), "suic_100k")
+#
+by_age_outliers <- 0
+for (a in unique(df$age)){
+num <- iqr_outliers(subset(df, df$age == a), "suic_100k")
+by_age_outliers <- by_age_outliers + num
+}
+by_age_outliers
+#
+by_age_gender <- 0
+for (a in unique(df$age)){
+for (g in unique(df$sex)){
+num <- iqr_outliers(subset(df, df$age == a & df$sex == g), "suic_100k")
+by_age_gender <- by_age_gender + num
+}
+}
+by_age_gender
+?tapply
+tapply(df$suic_100k, df$country, mean)
+sort(tapply(df$suic_100k, df$country, mean))
+tapply(df$suic_100k, df$country, mean)
+hist(tapply(df$suic_100k, df$country, mean))
+tapply(df$suic_100k, df$country, mean)
+suicides_by_country <- tapply(df$suic_100k, df$country, mean)
+barplot(suicides_by_country)
+barplot(suicides_by_country[1:19, ])
+barplot(suicides_by_country[1:19])
+barplot(suicides_by_country)
+barplot(suicides_by_country, xlab = "country", ylab = "S/100k")
+barplot(suicides_by_country, horiz = T, xlab = "country", ylab = "S/100k") #not representative
+barplot(suicides_by_country, xlab = "country", ylab = "S/100k") #not representative
+barplot(suicides_by_country, xlab = "country", ylab = "S/100k", las = 2) #not representative
+barplot(suicides_by_country[1:20], xlab = "country", ylab = "S/100k", las = 2) #not representative
+barplot(suicides_by_country, xlab = "country", ylab = "S/100k") #not representative
+suicides_by_year <- tapply(df$suic_100k, df$year, mean)
+barplot(suicides_by_year, horiz = T, xlab = "S/100k", ylab = "year", las = 2) #not representative, but still
+suicides_by_year <- tapply(df$suic_100k, df$year, mean)
+barplot(suicides_by_year, horiz = T, xlab = "S/100k", ylab = "year", las = 2, cex.axis = 0.8) #not representative, but still
+barplot(suicides_by_year, horiz = T, xlab = "S/100k", ylab = "year", las = 2, cex.axis = 0.8) #not representative, but still
+par(cex.axis = 0.8)
+suicides_by_year <- tapply(df$suic_100k, df$year, mean)
+barplot(suicides_by_year, horiz = T, xlab = "S/100k", ylab = "year", las = 2, cex.axis = 0.8) #not representative, but still
+par(cex.axis = 0.7)
+suicides_by_year <- tapply(df$suic_100k, df$year, mean)
+barplot(suicides_by_year, horiz = T, xlab = "S/100k", ylab = "year", las = 2) #not representative, but still
+par(cex.axis = 0.8)
+suicides_by_year <- tapply(df$suic_100k, df$year, mean)
+barplot(suicides_by_year, horiz = T, xlab = "S/100k", ylab = "year", las = 2) #not representative, but still
+suicides_by_country <- tapply(df$suic_100k, df$country, mean)
+barplot(suicides_by_country, xlab = "country", ylab = "S/100k") #not representative, but still
+df$gdp_for_year....
+df$gdp_per_capita....
+plot((df$gdp_per_capita..../1000), df$suic_100k)
+max(df$gdp_per_capita....)
+df[df$gdp_per_capita.... == max(df$gdp_per_capita....),]
+plot((df$gdp_per_capita..../1000), df$suic_100k, xlab = "GDP_pc, thousands $", ylab = "Suicides per 100k", pch = 16, cex = 1.2)
+plot((df$gdp_per_capita..../1000), df$suic_100k, xlab = "GDP_pc, thousands $", ylab = "Suicides per 100k", pch = 0, cex = 1.2)
+plot((df$gdp_per_capita..../1000), df$suic_100k, xlab = "GDP_pc, thousands $", ylab = "Suicides per 100k", pch = 10, cex = 1.2)
+plot((df$gdp_per_capita..../1000), df$suic_100k, xlab = "GDP_pc, thousands $", ylab = "Suicides per 100k", pch = 10, cex = 1.2)
+plot((df$gdp_per_capita..../1000), df$suic_100k, xlab = "GDP_pc, thousands $", ylab = "Suicides per 100k", pch = 16, cex = 1)
+plot((df$gdp_per_capita..../1000), df$suic_100k, xlab = "GDP_pc, thousands $", ylab = "Suicides per 100k", pch = 16, cex = 0.2)
+plot((df$gdp_per_capita..../1000), df$suic_100k, xlab = "GDP_pc, thousands $", ylab = "Suicides per 100k", col = "blue", pch = 16, cex = 0.2)
+plot((df$gdp_per_capita..../1000), df$suic_100k, xlab = "GDP_pc, thousands $", ylab = "Suicides per 100k", col = "pink", pch = 16, cex = 0.2)
+plot((df$gdp_per_capita..../1000), df$suic_100k, xlab = "GDP_pc, thousands $", ylab = "Suicides per 100k", col = "red", pch = 16, cex = 0.2)
+plot((df$gdp_per_capita..../1000), df$suic_100k, xlab = "GDP_pc, thousands $", ylab = "Suicides per 100k", col = "red", pch = 16, cex = 0.3)
+female <- subset(df, df$gender == "female")
+male <- subset(df, df$gender == "male")
+par(mfrow = 2)
+plot((female$gdp_per_capita..../1000),
+female$suic_100k,
+xlab = "GDP_pc, thousands $",
+ylab = "Female | Suicides per 100k",
+col = "red",
+pch = 16,
+cex = 0.3)
+par(mfrow = 2)
+plot((female$gdp_per_capita..../1000),
+female$suic_100k,
+xlab = "GDP_pc, thousands $",
+ylab = "Female | Suicides per 100k",
+col = "red",
+pch = 16,
+cex = 0.3)
+female <- subset(df, df$sex == "female")
+male <- subset(df, df$sex == "male")
+par(mfrow = 2)
+plot((female$gdp_per_capita..../1000),
+female$suic_100k,
+xlab = "GDP_pc, thousands $",
+ylab = "Female | Suicides per 100k",
+col = "red",
+pch = 16,
+cex = 0.3)
+plot((male$gdp_per_capita..../1000),
+male$suic_100k,
+xlab = "GDP_pc, thousands $",
+ylab = "Male | Suicides per 100k",
+col = "red",
+pch = 16,
+cex = 0.3)
+female <- subset(df, df$sex == "female")
+male <- subset(df, df$sex == "male")
+par(mfrow = c(1,2))
+plot((female$gdp_per_capita..../1000),
+female$suic_100k,
+xlab = "GDP_pc, thousands $",
+ylab = "Female | Suicides per 100k",
+col = "red",
+pch = 16,
+cex = 0.3)
+plot((male$gdp_per_capita..../1000),
+male$suic_100k,
+xlab = "GDP_pc, thousands $",
+ylab = "Male | Suicides per 100k",
+col = "red",
+pch = 16,
+cex = 0.3)
+#checked some of the countries to understand if each has every age group - bat we can see it below also
+summary(factor(df$age))
+par(mfrow = c(1,6))
+for (a in unique(df$age)){
+sub <- subset(df, df$age == a)
+plot((sub$gdp_per_capita..../1000),
+sub$suic_100k,
+xlab = "GDP_pc, thousands $",
+ylab = paste(a, "| Suicides per 100k"),
+col = "red",
+pch = 16,
+cex = 0.3)
+}
+par(mfrow = c(3,2))
+for (a in unique(df$age)){
+sub <- subset(df, df$age == a)
+plot((sub$gdp_per_capita..../1000),
+sub$suic_100k,
+xlab = "GDP_pc, thousands $",
+ylab = paste(a, "| Suicides per 100k"),
+col = "red",
+pch = 16,
+cex = 0.3)
+}
+unique(df$age)
+par(mfrow = c(3,2))
+for (a in c("5-14 years", "15-24 years", "25-34 years", "35-54 years", "55-74 years", "75+ years")){
+sub <- subset(df, df$age == a)
+plot((sub$gdp_per_capita..../1000),
+sub$suic_100k,
+xlab = "GDP_pc, thousands $",
+ylab = paste(a, "| Suicides per 100k"),
+col = "red",
+pch = 16,
+cex = 0.3)
+}
+for (a in c("5-14 years", "15-24 years", "25-34 years", "35-54 years", "55-74 years", "75+ years")){
+sub <- subset(df, df$age == a)
+plot((sub$gdp_per_capita..../1000),
+sub$suic_100k,
+xlab = "GDP_pc, thousands $",
+ylab = paste(a, "| S / 100k"),
+col = "red",
+pch = 16,
+cex = 0.3)
+}
+summary(df)
+savehistory("HW3_Olesia_Rozhanska")
+savehistory("HW3_Olesia_Rozhanska")
